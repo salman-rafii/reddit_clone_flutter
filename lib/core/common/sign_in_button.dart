@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone_flutter/core/constants/constants.dart';
+import 'package:reddit_clone_flutter/features/auth/controller/auth_controller.dart';
 import 'package:reddit_clone_flutter/theme/pallete.dart';
 import 'package:reddit_clone_flutter/widgets/custom_text.dart';
 
-class SignInButton extends StatefulWidget {
+class SignInButton extends ConsumerWidget {
   const SignInButton({super.key});
 
-  @override
-  State<SignInButton> createState() => _SignInButtonState();
-}
+  void signInWithGoogle(WidgetRef ref) {
+    ref.read(authControllerProvider).signInWithGoogle();
+  }
 
-class _SignInButtonState extends State<SignInButton> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: ElevatedButton.icon(
@@ -24,7 +25,7 @@ class _SignInButtonState extends State<SignInButton> {
           Constants.googlePath,
           width: 35,
         ),
-        onPressed: () {},
+        onPressed: () => signInWithGoogle(ref),
         style: ElevatedButton.styleFrom(
             backgroundColor: Pallete.greyColor,
             minimumSize: const Size(double.infinity, 50),
