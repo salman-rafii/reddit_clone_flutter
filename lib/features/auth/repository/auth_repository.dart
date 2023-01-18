@@ -45,7 +45,9 @@ class AuthRepository {
           await _auth.signInWithCredential(credential);
 
       final userData = userCredential.user!;
+
       UserModel userModel;
+      // check if user is new or not, if new then create otherwise not
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
           name: userData.displayName ?? 'Untitled',
