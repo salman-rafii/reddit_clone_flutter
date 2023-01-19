@@ -8,8 +8,8 @@ import 'package:reddit_clone_flutter/widgets/custom_text.dart';
 class SignInButton extends ConsumerWidget {
   const SignInButton({super.key});
 
-  void signInWithGoogle(WidgetRef ref) {
-    ref.read(authControllerProvider).signInWithGoogle();
+  void signInWithGoogle(BuildContext context, WidgetRef ref) {
+    ref.read(authControllerProvider).signInWithGoogle(context);
   }
 
   @override
@@ -25,7 +25,7 @@ class SignInButton extends ConsumerWidget {
           Constants.googlePath,
           width: 35,
         ),
-        onPressed: () => signInWithGoogle(ref),
+        onPressed: () => signInWithGoogle(context, ref),
         style: ElevatedButton.styleFrom(
             backgroundColor: Pallete.greyColor,
             minimumSize: const Size(double.infinity, 50),
