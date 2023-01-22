@@ -6,20 +6,23 @@ import 'package:reddit_clone_flutter/models/user_model.dart';
 
 final userProvider = StateProvider<UserModel?>((ref) => null);
 
-final authControllerProvider = Provider(
+final authControllerProvider = StateNotifierProvider<AuthController, bool>(
   (ref) => AuthController(
-      authRepository: ref.read(authRepositoryProvider), ref: ref),
+      authRepository: ref.watch(authRepositoryProvider), ref: ref),
 );
 
-class AuthController {
+class AuthController extends StateNotifier<bool> {
   final AuthRepository _authRepository;
   final Ref _ref;
   AuthController({required AuthRepository authRepository, required Ref ref})
       : _authRepository = authRepository,
-        _ref = ref;
+        _ref = ref,
+        super(false);
 
   void signInWithGoogle(BuildContext context) async {
+    state = true;
     final user = await _authRepository.signInWithGoogle();
+    state = false;
     user.fold(
       (l) => showSnackBar(context, l.message),
       (userModel) => _ref.read(userProvider.notifier).update(
