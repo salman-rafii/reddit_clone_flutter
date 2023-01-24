@@ -35,6 +35,7 @@ class CommunityRepository {
     }
   }
 
+  // Stream<List<Community>> getUserCommunities() {}
   CollectionReference get _communities =>
       _firestore.collection(FirebaseConstants.communitiesCollection);
 }
