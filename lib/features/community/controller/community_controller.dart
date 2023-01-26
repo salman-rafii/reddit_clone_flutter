@@ -7,6 +7,12 @@ import 'package:reddit_clone_flutter/features/community/repository/community_rep
 import 'package:reddit_clone_flutter/models/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
+final userCommuitiesProvider = StreamProvider((ref) {
+  final communityController = ref.watch(communityControllerProvider.notifier);
+
+  return communityController.getUserCommunities();
+});
+
 final communityControllerProvider =
     StateNotifierProvider<CommunityController, bool>((ref) =>
         CommunityController(
@@ -41,5 +47,14 @@ class CommunityController extends StateNotifier<bool> {
       showSnackBar(context, 'Community created successfully!');
       Routemaster.of(context).pop();
     });
+  }
+
+  Stream<List<Community>> getUserCommunities() {
+    final uid = _ref.read(userProvider)!.uid;
+    return _communityRepository.getUserCommunities(uid);
+  }
+
+  Stream<Community> getCommunityByName(String name) {
+    return _communityRepository.getCommunityByName(name);
   }
 }

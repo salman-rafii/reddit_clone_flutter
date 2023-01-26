@@ -35,7 +35,24 @@ class CommunityRepository {
     }
   }
 
-  // Stream<List<Community>> getUserCommunities() {}
+  Stream<List<Community>> getUserCommunities(String uid) {
+    return _communities
+        .where('members', arrayContains: uid)
+        .snapshots()
+        .map((event) {
+      List<Community> communities = [];
+      for (var doc in event.docs) {
+        communities.add(Community.fromMap(doc.data() as Map<String, dynamic>));
+      }
+      return communities;
+    });
+  }
+
+  Stream<Community> getCommunityByName(String name) {
+    return _communities.doc(name).snapshots().map(
+        (event) => Community.fromMap(event.data() as Map<String, dynamic>));
+  }
+
   CollectionReference get _communities =>
       _firestore.collection(FirebaseConstants.communitiesCollection);
 }
