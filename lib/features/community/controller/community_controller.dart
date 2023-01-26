@@ -14,10 +14,16 @@ final userCommuitiesProvider = StreamProvider((ref) {
 });
 
 final communityControllerProvider =
-    StateNotifierProvider<CommunityController, bool>((ref) =>
-        CommunityController(
-            communityRepository: ref.read(communityRepositoryProvider),
-            ref: ref));
+    StateNotifierProvider<CommunityController, bool>(
+  (ref) => CommunityController(
+      communityRepository: ref.read(communityRepositoryProvider), ref: ref),
+);
+
+final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
+  return ref
+      .watch(communityControllerProvider.notifier)
+      .getCommunityByName(name);
+});
 
 class CommunityController extends StateNotifier<bool> {
   final CommunityRepository _communityRepository;
