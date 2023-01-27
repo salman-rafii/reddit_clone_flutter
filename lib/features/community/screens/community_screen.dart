@@ -17,12 +17,33 @@ class CommunityScreen extends ConsumerWidget {
                   return [
                     SliverAppBar(
                       expandedHeight: 150,
+                      floating: true,
+                      snap: true,
                       flexibleSpace: Stack(
                         children: [
                           Positioned.fill(
-                            child: Image.network(community.banner),
+                            child: Image.network(
+                              community.banner,
+                              fit: BoxFit.cover,
+                            ),
                           )
                         ],
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(16),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(community.avatar),
+                                radius: 35,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ];
