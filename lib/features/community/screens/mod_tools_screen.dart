@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+import 'package:reddit_clone_flutter/widgets/custom_text.dart';
+import 'package:routemaster/routemaster.dart';
+
+class ModToolsScreen extends StatelessWidget {
+  final String name;
+  const ModToolsScreen({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  void navigateToEditCommunityScreen(BuildContext context) {
+    Routemaster.of(context).push('/edit-community/$name');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const CustomText(text: "Mod Tools"),
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.add_moderator),
+            title: const CustomText(
+              text: "Add Moderator",
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const CustomText(
+              text: "Edit Community",
+            ),
+            onTap: () => navigateToEditCommunityScreen(context),
+          ),
+        ],
+      ),
+    );
+  }
+}
