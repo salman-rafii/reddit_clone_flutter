@@ -100,10 +100,16 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                             left: 20,
                             child: GestureDetector(
                               onTap: selectProfileImage,
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(community.avatar),
-                                radius: 32,
-                              ),
+                              child: profileFile != null
+                                  ? CircleAvatar(
+                                      backgroundImage: FileImage(profileFile!),
+                                      radius: 32,
+                                    )
+                                  : CircleAvatar(
+                                      backgroundImage:
+                                          NetworkImage(community.avatar),
+                                      radius: 32,
+                                    ),
                             ),
                           )
                         ],
