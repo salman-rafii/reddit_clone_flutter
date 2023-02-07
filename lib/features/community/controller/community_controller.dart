@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone_flutter/core/constants/constants.dart';
+import 'package:reddit_clone_flutter/core/providers/storage_repository_provider.dart';
 import 'package:reddit_clone_flutter/core/utils.dart';
 import 'package:reddit_clone_flutter/features/auth/controller/auth_controller.dart';
 import 'package:reddit_clone_flutter/features/community/repository/community_repository.dart';
@@ -16,7 +19,9 @@ final userCommuitiesProvider = StreamProvider((ref) {
 final communityControllerProvider =
     StateNotifierProvider<CommunityController, bool>(
   (ref) => CommunityController(
-      communityRepository: ref.read(communityRepositoryProvider), ref: ref),
+      storageRepository: ref.watch(storageRepositoryProvider),
+      communityRepository: ref.read(communityRepositoryProvider),
+      ref: ref),
 );
 
 final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
@@ -28,10 +33,14 @@ final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
 class CommunityController extends StateNotifier<bool> {
   final CommunityRepository _communityRepository;
   final Ref _ref;
+  final StorageRepository _storageRepository;
   CommunityController(
-      {required CommunityRepository communityRepository, required Ref ref})
+      {required CommunityRepository communityRepository,
+      required StorageRepository storageRepository,
+      required Ref ref})
       : _communityRepository = communityRepository,
         _ref = ref,
+        _storageRepository = storageRepository,
         super(false);
 
   void createCommunity(String name, BuildContext context) async {
@@ -53,6 +62,41 @@ class CommunityController extends StateNotifier<bool> {
       showSnackBar(context, 'Community created successfully!');
       Routemaster.of(context).pop();
     });
+  }
+
+  void editCommunity({
+    required Community community,
+    required File? profileFile,
+    required File? bannerFile,
+    required BuildContext context,
+  }) async {
+    state = true;
+    if (profileFile != null) {
+      final res = await _storageRepository.storeFile(
+        path: 'communities/profile',
+        id: community.name,
+        file: profileFile,
+      );
+      res.fold(
+        (l) => showSnackBar(context, l.message),
+        (r) => community = community.copyWith(avatar: r),
+      );
+    }
+    if (bannerFile != null) {
+      final res = await _storageRepository.storeFile(
+        path: 'communities/profile',
+        id: community.name,
+        file: bannerFile,
+      );
+      res.fold(
+        (l) => showSnackBar(context, l.message),
+        (r) => community = community.copyWith(banner: r),
+      );
+    }
+    final res = await _communityRepository.editCommunity(community);
+    state = false;
+    res.fold((l) => showSnackBar(context, l.message),
+        (r) => Routemaster.of(context).pop());
   }
 
   Stream<List<Community>> getUserCommunities() {
