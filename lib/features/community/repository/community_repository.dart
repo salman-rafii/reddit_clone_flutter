@@ -63,6 +63,28 @@ class CommunityRepository {
     }
   }
 
+  Stream<List<Community>> searchCommunities(String query) {
+    return _communities
+        .where('name',
+            isGreaterThanOrEqualTo: query.isEmpty ? 0 : query,
+            isLessThan: query.isEmpty
+                ? null
+                : query.substring(0, query.length - 1) +
+                    String.fromCharCode(query.codeUnitAt(query.length - 1) + 1))
+        .snapshots()
+        .map((event) {
+      List<Community> communities = [];
+      for (var commmunity in event.docs) {
+        communities.add(
+          Community.fromMap(
+            commmunity.data() as Map<String, dynamic>,
+          ),
+        );
+      }
+      return communities;
+    });
+  }
+
   CollectionReference get _communities =>
       _firestore.collection(FirebaseConstants.communitiesCollection);
 }
