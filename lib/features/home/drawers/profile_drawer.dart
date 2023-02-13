@@ -12,35 +12,51 @@ class ProfileDrawer extends ConsumerWidget {
     final user = ref.watch(userProvider)!;
     return Drawer(
       child: SafeArea(
-          child: Column(
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(user.profilePic),
-            radius: 70,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomText(
-            text: "u/${user.name}",
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Divider(),
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Pallete.redColor,
+        child: Column(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(user.profilePic),
+              radius: 70,
             ),
-            title: const CustomText(
-              text: "Create Community",
+            const SizedBox(
+              height: 10,
             ),
-          )
-        ],
-      )),
+            CustomText(
+              text: "u/${user.name}",
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              title: const CustomText(
+                text: "My Profile",
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: Pallete.redColor,
+              ),
+              title: const CustomText(
+                text: "Logout",
+              ),
+              onTap: () {},
+            ),
+            Switch.adaptive(
+              value: true,
+              onChanged: (value) {},
+            )
+          ],
+        ),
+      ),
     );
   }
 }
