@@ -3,61 +3,62 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit_clone_flutter/core/common/loader.dart';
 import 'package:reddit_clone_flutter/core/common/sign_in_button.dart';
 import 'package:reddit_clone_flutter/core/constants/constants.dart';
-import 'package:reddit_clone_flutter/features/auth/controller/auth_controller.dart';
-import 'package:reddit_clone_flutter/widgets/custom_text.dart';
+import 'package:reddit_clone_flutter/features/auth/controlller/auth_controller.dart';
+import 'package:reddit_clone_flutter/responsive/responsive.dart';
 
 class LoginScreen extends ConsumerWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
+
+  void signInAsGuest(WidgetRef ref, BuildContext context) {
+    ref.read(authControllerProvider.notifier).signInAsGuest(context);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(authControllerProvider);
+
     return Scaffold(
-      // logo on appbar
       appBar: AppBar(
         title: Image.asset(
           Constants.logoPath,
           height: 40,
         ),
-        centerTitle: true,
         actions: [
           TextButton(
-            onPressed: () {},
-            child: const CustomText(
-              text: "Skip",
+            onPressed: () => signInAsGuest(ref, context),
+            child: const Text(
+              'Skip',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
+          ),
         ],
       ),
       body: isLoading
           ? const Loader()
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
+          : Column(
+              children: [
+                const SizedBox(height: 30),
+                const Text(
+                  'Dive into anything',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
                   ),
-                  const CustomText(
-                    text: "Dive into anything",
-                    color: Colors.white,
-                    fontSize: 24.0,
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    Constants.loginEmotePath,
+                    height: 400,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      Constants.loginEmotePath,
-                      height: 400,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SignInButton()
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                const Responsive(child: SignInButton()),
+              ],
             ),
     );
   }

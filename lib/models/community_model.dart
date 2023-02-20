@@ -76,11 +76,6 @@ class Community {
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        banner.hashCode ^
-        avatar.hashCode ^
-        members.hashCode ^
-        mods.hashCode;
+    return id.hashCode ^ name.hashCode ^ banner.hashCode ^ avatar.hashCode ^ members.hashCode ^ mods.hashCode;
   }
 }

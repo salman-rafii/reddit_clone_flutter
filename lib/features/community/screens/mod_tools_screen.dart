@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:reddit_clone_flutter/widgets/custom_text.dart';
 import 'package:routemaster/routemaster.dart';
 
 class ModToolsScreen extends StatelessWidget {
@@ -10,32 +8,31 @@ class ModToolsScreen extends StatelessWidget {
     required this.name,
   }) : super(key: key);
 
-  void navigateToEditCommunityScreen(BuildContext context) {
+  void navigateToModTools(BuildContext context) {
     Routemaster.of(context).push('/edit-community/$name');
+  }
+
+  void navigateToAddMods(BuildContext context) {
+    Routemaster.of(context).push('/add-mods/$name');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const CustomText(text: "Mod Tools"),
+        title: const Text('Mod Tools'),
       ),
       body: Column(
         children: [
           ListTile(
             leading: const Icon(Icons.add_moderator),
-            title: const CustomText(
-              text: "Add Moderator",
-            ),
-            onTap: () {},
+            title: const Text('Add Moderators'),
+            onTap: () => navigateToAddMods(context),
           ),
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const CustomText(
-              text: "Edit Community",
-            ),
-            onTap: () => navigateToEditCommunityScreen(context),
+            title: const Text('Edit Community'),
+            onTap: () => navigateToModTools(context),
           ),
         ],
       ),
