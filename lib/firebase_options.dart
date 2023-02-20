@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA3h36GIEl47nF6mQHmyr5C9-uALnH1Sqs',
-    appId: '1:818357899629:web:94f7409284b8d49f56ca64',
-    messagingSenderId: '818357899629',
-    projectId: 'reddit-clone-flutter-5093c',
-    authDomain: 'reddit-clone-flutter-5093c.firebaseapp.com',
-    storageBucket: 'reddit-clone-flutter-5093c.appspot.com',
+    apiKey: 'AIzaSyBTa5m4-ePHiM5PPrQQj4LugraI5ADEk3M',
+    appId: '1:380609523336:web:d30895dbd69584a931b93d',
+    messagingSenderId: '380609523336',
+    projectId: 'reddit-clone-tutorial-8091a',
+    authDomain: 'reddit-clone-tutorial-8091a.firebaseapp.com',
+    storageBucket: 'reddit-clone-tutorial-8091a.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC7a-UpzM1dik7AZdxY9792prkzqw0ht6w',
-    appId: '1:818357899629:android:f0b70f3510875a2b56ca64',
-    messagingSenderId: '818357899629',
-    projectId: 'reddit-clone-flutter-5093c',
-    storageBucket: 'reddit-clone-flutter-5093c.appspot.com',
+    apiKey: 'AIzaSyAxyQ7EgDw-ZSrCTqnBStYo_OIPCfbmE-4',
+    appId: '1:380609523336:android:bb576b87cbb505fd31b93d',
+    messagingSenderId: '380609523336',
+    projectId: 'reddit-clone-tutorial-8091a',
+    storageBucket: 'reddit-clone-tutorial-8091a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAs21ZTe3KTEa53N_eQeqmqs-6ap-G60TE',
-    appId: '1:818357899629:ios:e270d350f1b0521756ca64',
-    messagingSenderId: '818357899629',
-    projectId: 'reddit-clone-flutter-5093c',
-    storageBucket: 'reddit-clone-flutter-5093c.appspot.com',
-    iosClientId: '818357899629-f1rb0liukcd6fgktkk4t7ljbdambsg9k.apps.googleusercontent.com',
-    iosBundleId: 'com.example.redditCloneFlutter',
+    apiKey: 'AIzaSyCLsooo3Ca2PyRj92s3qpcFPsN3jnIM17s',
+    appId: '1:380609523336:ios:b39e394ab65d90d331b93d',
+    messagingSenderId: '380609523336',
+    projectId: 'reddit-clone-tutorial-8091a',
+    storageBucket: 'reddit-clone-tutorial-8091a.appspot.com',
+    iosClientId: '380609523336-2amum5bidqtue1scvv8mbb0c11lj6k7d.apps.googleusercontent.com',
+    iosBundleId: 'com.example.redditTutorial',
   );
 }
